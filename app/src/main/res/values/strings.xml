@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">BlowUP</string>
+    <string name="dandelion_btn">Dandelion</string>
+    <string name="windmill_btn">Windmill</string>
 </resources>

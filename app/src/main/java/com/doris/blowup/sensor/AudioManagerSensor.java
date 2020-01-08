@@ -47,7 +47,9 @@ public class AudioManagerSensor extends MySensor {
 
     @Override
     public void start() {
+        Log.i("sensor","!!!!!!!!!!!!!!!!!start!!!!!!!!!!!!!!!!!!!!!!!");
         if (isGetVoiceRun) {
+            Log.i("sensor","!!!!!!!!!!!!!!!!!start isGetVoiceRun!!!!!!!!!!!!!!!!!!!!!!!");
             return;
         }
         if (mAudioRecord == null) {
@@ -57,6 +59,7 @@ public class AudioManagerSensor extends MySensor {
         new Thread(new Runnable() {
             @Override
             public void run() {
+                Log.i("sensor","!!!!!!!!!!!!!!!!!start thread!!!!!!!!!!!!!!!!!!!!!!!");
                 mAudioRecord.startRecording();
                 short[] buffer = new short[BUFFER_SIZE];
                 while (isGetVoiceRun) {
@@ -94,11 +97,13 @@ public class AudioManagerSensor extends MySensor {
 
     @Override
     public void shutDown() {
+        Log.i("sensor","!!!!!!!!!!!!!!!!!shutdown!!!!!!!!!!!!!!!!!!!!!!!");
         isGetVoiceRun = false;
     }
 
     @Override
     public void destory() {
+        Log.i("sensor","!!!!!!!!!!!!!!!!!destroy!!!!!!!!!!!!!!!!!!!!!!!");
         if (mAudioRecord != null) {
             mAudioRecord.release();
             mAudioRecord = null;

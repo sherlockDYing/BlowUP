@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.Animation;
 import android.view.animation.AnimationSet;
@@ -60,7 +61,6 @@ public class DandelionActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dandelion);
         findView();
-        requestPower();
 //        if (recordThread == null || recordThread.getRecordStatus()) {
 //            recordThread = new RecordThread(handler, 1);
 //            recordThread.start();
@@ -85,10 +85,12 @@ public class DandelionActivity extends Activity {
         public void handleMessage(Message msg) {
             switch (msg.what) {
                 case BLOW_START:
+                    Log.i("dandelion","dandelion blow start");
                     blowSensor.shutDown();
                     updateOnBlow();
                     break;
                 case BLOW_END:
+                    Log.i("dandelion","dandelion blow end");
                     sleep(100);
                     break;
                 default:
@@ -236,5 +238,25 @@ public class DandelionActivity extends Activity {
                 }
             }
         }
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        blowSensor.start();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        blowSensor.shutDown();
+
+    }
+
+    @Override
+    protected void onDestroy() {
+        blowSensor.destory();
+        super.onDestroy();
+
     }
 }
