@@ -1,0 +1,108 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@mipmap/wb_wlog_blow_bg_daytime"
+    tools:context=".MainActivity" >
+
+    <ImageView 
+        android:id="@+id/baiyun"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:background="@mipmap/wb_wlog_blow_transitions"
+        android:visibility="gone"
+        />
+    <ImageView
+        android:id="@+id/chui_res"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="5dip"
+        android:background="@mipmap/wb_wlog_blow_parent_dandelion06"
+        android:visibility="visible" />
+
+    <RelativeLayout
+        android:id="@+id/chui_yihou"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:gravity="bottom"
+        android:paddingLeft="20dip"
+        android:paddingBottom="80dip"
+        >
+
+        <ImageView	android:id="@+id/chui1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="3dp"
+            android:layout_marginTop="5dp"
+            android:background="@mipmap/wb_wlog_blow_dandelion" />
+        <ImageView	android:id="@+id/chui6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="3dp"
+            android:layout_marginTop="5dp"
+            android:background="@mipmap/wb_wlog_blow_dandelion" />
+        <ImageView	android:id="@+id/chui2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="3dp"
+            android:layout_marginTop="5dp"
+            android:background="@mipmap/wb_wlog_blow_dandelion" />
+        <ImageView	android:id="@+id/chui7"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="3dp"
+            android:layout_marginTop="5dp"
+            android:background="@mipmap/wb_wlog_blow_dandelion" />
+
+        <ImageView android:id="@+id/chui8"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="6dp"
+            android:layout_marginTop="6dp"
+            android:background="@mipmap/wb_wlog_blow_dandelion" />
+
+        <ImageView android:id="@+id/chui3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="9dp"
+            android:layout_marginTop="7dp"
+            android:background="@mipmap/wb_wlog_blow_dandelion" />
+
+        <ImageView android:id="@+id/chui4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="12dp"
+            android:layout_marginTop="8dp"
+            android:background="@mipmap/wb_wlog_blow_dandelion" />
+        
+                <ImageView android:id="@+id/chui5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="9dp"
+            android:background="@mipmap/wb_wlog_blow_dandelion" />
+                                <ImageView android:id="@+id/chui9"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="9dp"
+            android:background="@mipmap/wb_wlog_blow_dandelion" />
+                                                <ImageView android:id="@+id/chui10"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="9dp"
+            android:background="@mipmap/wb_wlog_blow_dandelion" />
+    </RelativeLayout>
+
+    <ImageView
+        android:id="@+id/chui_pugongying"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="5dip"
+        android:background="@mipmap/wb_wlog_blow_parent_dandelion"
+        android:visibility="visible" />
+
+</RelativeLayout>

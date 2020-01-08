@@ -32,7 +32,6 @@ public class AudioManagerSensor extends MySensor {
         mAudioRecord = new AudioRecord(MediaRecorder.AudioSource.MIC,
                 SAMPLE_RATE_IN_HZ, AudioFormat.CHANNEL_IN_DEFAULT,
                 AudioFormat.ENCODING_PCM_16BIT, BUFFER_SIZE);
-        Log.i("as","as");
     }
 
     public static AudioManagerSensor getInstance(Handler handler) {
@@ -73,7 +72,7 @@ public class AudioManagerSensor extends MySensor {
                     double volume = 10 * Math.log10(mean);
 //                    if (needVolume > 0) {
                     //采集平均值不太稳定（iPhone非常稳定）这里用定值
-                    if (volume > 45) {
+                    if (volume > 65) {
                         mHandler.sendEmptyMessage(WindmillActivity.BLOW_START);
                     }
 
