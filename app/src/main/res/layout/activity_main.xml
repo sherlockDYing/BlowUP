@@ -6,19 +6,22 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:orientation="vertical">
-    <Button
-           android:id="@+id/windmill_btn"
-           android:layout_width="wrap_content"
-           android:layout_height="wrap_content"
-           android:text="@string/windmill_btn"
-           android:background="@mipmap/btn_windmill" />
 
-    <Button
+     <Button
+         android:id="@+id/windmill_btn"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:background="@mipmap/btn_windmill"
+         android:text="@string/windmill_btn" />
+
+     <Button
         android:id="@+id/dandelion_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/dandelion_btn"
         android:background="@mipmap/btn_dandelion"/>
+
+
 </LinearLayout>
 
 </RelativeLayout>

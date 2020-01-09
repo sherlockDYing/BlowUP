@@ -1,22 +1,4 @@
 package com.doris.blowup;
-//
-//import androidx.appcompat.app.AppCompatActivity;
-//
-//import android.os.Bundle;
-//
-//public class WindmillActivity extends AppCompatActivity {
-//
-//    @Override
-//    protected void onCreate(Bundle savedInstanceState) {
-//        super.onCreate(savedInstanceState);
-//        setContentView(R.layout.activity_main);
-//    }
-//}
-
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
-
 import android.Manifest;
 import android.app.Activity;
 import android.content.pm.PackageManager;

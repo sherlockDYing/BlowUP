@@ -24,7 +24,6 @@ public class SwitchBackgroundListener implements GestureDetector.OnGestureListen
     private final static  int FOR_D = 0;
     private final static int FOR_W = 1;
     public SwitchBackgroundListener(ViewGroup background,int stage){
-        Log.i("background","bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb");
         this.background = background;
         if(stage == FOR_D){
            bg[0] = R.mipmap.bg1;
@@ -70,7 +69,6 @@ public class SwitchBackgroundListener implements GestureDetector.OnGestureListen
 
     @Override
     public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
-        Log.i("background","infling!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
         // 处理左右滑动
         if (e1.getX() - e2.getX() > 100) { // 向左滑动
             if (flag == 3) {
