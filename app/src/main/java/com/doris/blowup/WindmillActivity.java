@@ -25,6 +25,7 @@ import android.os.Message;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -34,11 +35,20 @@ import android.widget.RelativeLayout;
 import android.widget.Toast;
 import static android.content.pm.PackageManager.PERMISSION_GRANTED;
 
+import com.doris.blowup.listener.SwitchBackgroundListener;
 import com.doris.blowup.sensor.AudioManagerSensor;
 import com.doris.blowup.sensor.MySensor;
 
 
 public class WindmillActivity extends Activity implements View.OnTouchListener{
+    private final static int FOR_W = 1;
+
+    private GestureDetector mGesture;
+
+    private SwitchBackgroundListener switchBackgroundListener;
+
+    private RelativeLayout background ;
+
     private ImageView mWindmillImg;
     private Button mBlowBtn;
     private MySensor blowSenser;
@@ -61,6 +71,7 @@ public class WindmillActivity extends Activity implements View.OnTouchListener{
         initLayout();
         initData();
         blowSenser = AudioManagerSensor.getInstance(handler);
+
     }
 
     public void initData() {
@@ -107,13 +118,25 @@ public class WindmillActivity extends Activity implements View.OnTouchListener{
         mWindmillImg = (ImageView) this.findViewById(R.id.activity_blow_windmill);
         mBlowBtn = (Button) this.findViewById(R.id.activity_blow_btn);
         mBlowBtn.setOnTouchListener(this);
+        background = findViewById(R.id.blow_background);
         RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         int btnWidth = dm.heightPixels / 6;
         layoutParams.width = btnWidth;//设置宽高
         layoutParams.height = btnWidth;
         layoutParams.setMargins((dm.widthPixels - btnWidth) / 2, dm.heightPixels / 6 * 4, 0, 0);
         mBlowBtn.setLayoutParams(layoutParams);
+        switchBackgroundListener = new SwitchBackgroundListener(background,FOR_W);
+        mGesture = new GestureDetector(switchBackgroundListener);
+        background.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                return mGesture.onTouchEvent(event);
+            }
+        });
+        background.setLongClickable(true);
     }
+
+
 
     @Override
     protected void onStart() {

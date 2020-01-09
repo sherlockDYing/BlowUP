@@ -8,17 +8,23 @@ import android.os.Handler;
 import android.os.Message;
 import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.GestureDetector;
+import android.view.MotionEvent;
+import android.view.View;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.Animation;
 import android.view.animation.AnimationSet;
 import android.view.animation.AnimationUtils;
 import android.view.animation.LinearInterpolator;
 import android.view.animation.TranslateAnimation;
+import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.view.animation.Animation.AnimationListener;
 import android.widget.Toast;
 
+import com.doris.blowup.listener.SwitchBackgroundListener;
 import com.doris.blowup.sensor.AudioManagerSensor;
 import com.doris.blowup.sensor.MySensor;
 
@@ -30,7 +36,18 @@ import static android.content.pm.PackageManager.PERMISSION_GRANTED;
 //
 // Created by dingying on 2020/1/8.
 //
-public class DandelionActivity extends Activity {
+public class DandelionActivity extends Activity implements View.OnTouchListener {
+
+    private final static  int FOR_D = 0;
+
+
+    private GestureDetector mGesture;
+
+    private SwitchBackgroundListener switchBackgroundListener;
+
+    private Button btnAgain;
+
+    private RelativeLayout background;
 
     private ImageView after;
 
@@ -60,20 +77,22 @@ public class DandelionActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dandelion);
-        findView();
-//        if (recordThread == null || recordThread.getRecordStatus()) {
-//            recordThread = new RecordThread(handler, 1);
-//            recordThread.start();
-//        }
+        initView();
         DisplayMetrics dm = new DisplayMetrics();
         this.getWindowManager().getDefaultDisplay().getMetrics(dm);
         w = dm.widthPixels;
         h = dm.heightPixels;
+
         blowSensor = AudioManagerSensor.getInstance(handler);
         blowSensor.start();
     }
 
     BlowHandler handler = new BlowHandler();
+
+    @Override
+    public boolean onTouch(View v, MotionEvent event) {
+        return this.mGesture.onTouchEvent(event);
+    }
 
     class BlowHandler extends Handler {
         public void sleep(long delayMillis) {
@@ -99,7 +118,9 @@ public class DandelionActivity extends Activity {
         }
     };
 
-    private void findView(){
+    private void initView(){
+        background = findViewById(R.id.background);
+        btnAgain = findViewById(R.id.again_btn);
         after = (ImageView) findViewById(R.id.chui_res);
         before = (ImageView) findViewById(R.id.chui_pugongying);
         relayout = (RelativeLayout) findViewById(R.id.chui_yihou);
@@ -116,6 +137,22 @@ public class DandelionActivity extends Activity {
 
         animDisappear = AnimationUtils.loadAnimation(this, R.anim.disappear);
         animAppear = AnimationUtils.loadAnimation(this,R.anim.appear);
+
+        btnAgain.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                before.startAnimation(animAppear);
+                after.startAnimation(animAppear);
+                blowSensor.start();
+                Log.i("AGAIN","invisible");
+                btnAgain.setVisibility(View.INVISIBLE);
+            }
+        });
+
+        switchBackgroundListener = new SwitchBackgroundListener(background,FOR_D);
+        mGesture = new GestureDetector(switchBackgroundListener);
+        background.setOnTouchListener(this);
+        background.setLongClickable(true);
     }
 
 
@@ -175,10 +212,7 @@ public class DandelionActivity extends Activity {
         public void onAnimationEnd(Animation animation) {
             after.startAnimation(AnimationUtils.loadAnimation(
                     DandelionActivity.this, R.anim.disappear));
-//            AnimationSet set = (AnimationSet) AnimationUtils.loadAnimation(
-//                    DandelionActivity.this, R.anim.baiyue);
-//            baiyunImage.setVisibility(View.VISIBLE);
-//            baiyunImage.startAnimation(set);
+            btnAgain.setVisibility(View.VISIBLE);
         }
     };
 
@@ -210,35 +244,7 @@ public class DandelionActivity extends Activity {
         return (int) Math.round(Math.random() * 3000 + 1000);
     }
 
-    public void requestPower() {
-        //判断是否已经赋予权限
-        if (ContextCompat.checkSelfPermission(this,
-                Manifest.permission.RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED) {
-            //如果应用之前请求过此权限但用户拒绝了请求，此方法将返回 true。
-            if (ActivityCompat.shouldShowRequestPermissionRationale(this,
-                    Manifest.permission.RECORD_AUDIO)) {//这里可以写个对话框之类的项向用户解释为什么要申请权限，并在对话框的确认键后续再次申请权限.它在用户选择"不再询问"的情况下返回false
-            } else {
-                //申请权限，字符串数组内是一个或多个要申请的权限，1是申请权限结果的返回参数，在onRequestPermissionsResult可以得知申请结果
-                ActivityCompat.requestPermissions(this,
-                        new String[]{Manifest.permission.RECORD_AUDIO,}, 1);
-            }
-        }
-    }
 
-    @Override
-    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-
-        if (requestCode == 1) {
-            for (int i = 0; i < permissions.length; i++) {
-                if (grantResults[i] == PERMISSION_GRANTED) {
-                    Toast.makeText(this, "" + "权限" + permissions[i] + "申请成功", Toast.LENGTH_SHORT).show();
-                } else {
-                    Toast.makeText(this, "" + "权限" + permissions[i] + "申请失败", Toast.LENGTH_SHORT).show();
-                }
-            }
-        }
-    }
 
     @Override
     protected void onStart() {
